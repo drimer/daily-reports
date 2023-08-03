@@ -37,3 +37,11 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+
+    - name: Run Notion task
+      env:
+        RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
+        FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
+        FROM_EMAIL_PASSWORD: ${{secrets.FROM_EMAIL_PASSWORD}}
+      run: |
+        python -c 'from src.tasks import notion_daily_report; notion_daily_report()'
