@@ -51,7 +51,7 @@ TODAY_VIEW_FILTER = {
 
 def get_request_headers():
     return {
-        "Authorization": "Bearer " + os.environ.get('NOTION_API_TOKEN', None),
+        "Authorization": "Bearer " + os.environ['NOTION_API_TOKEN'],
         "Content-Type": "application/json",
         "Notion-Version": "2022-06-28"
     }
