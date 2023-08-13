@@ -1,1 +1,0 @@
-from src.tasks import notion_daily_report; notion_daily_report()
