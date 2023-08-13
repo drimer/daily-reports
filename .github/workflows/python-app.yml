@@ -43,5 +43,6 @@ jobs:
         RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
         FROM_EMAIL_PASSWORD: ${{secrets.FROM_EMAIL_PASSWORD}}
+        NOTION_API_TOKEN: ${{secrets.NOTION_API_TOKEN}}
       run: |
         python -c 'from src.tasks import notion_daily_report; notion_daily_report()'
