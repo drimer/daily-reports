@@ -1,10 +1,11 @@
 import requests
 import os
+from datetime import datetime
 
 from src.notion.models import Task
 
 
-EXAMPLE_FILTER = {
+TODAY_VIEW_FILTER = {
   "filter": {
     "and": [
       {
@@ -14,11 +15,29 @@ EXAMPLE_FILTER = {
         }
       },
       {
+        "property": "Kanban - State",
+        "select": {
+            "does_not_equal": "Done",
+        }
+      },
+      {
         "property": "Priority",
         "select": {
           "is_not_empty": True
         }
-      }
+      },
+      {
+        "property": "Done",
+        "checkbox": {
+          "does_not_equal": True,
+        }
+      },
+      {
+          "property": "Due",
+          "date": {
+              "on_or_before": datetime.now().isoformat(),
+          }
+      },
     ]
   },
   "sorts": [
