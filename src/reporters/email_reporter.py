@@ -11,7 +11,7 @@ class EmailReporter:
         from_email_address = os.environ['FROM_EMAIL_ADDRESS']
         from_email_password = os.environ['FROM_EMAIL_PASSWORD']
 
-        msg = MIMEText(message)
+        msg = MIMEText(message, 'html')
         msg['Subject'] = 'Daily report'
         msg['From'] = from_email_address
         msg['To'] = recipient_email

@@ -68,7 +68,7 @@ def pull_db_entries_from_notion(database_id: str, filters: dict):
 
 def as_task(api_json_response: dict) -> Task:
     if api_json_response['properties']['Due']['date']:
-        due_by = api_json_response['properties']['Due']['date']['end']
+        due_by = api_json_response['properties']['Due']['date']['start']
     else:
         due_by = None
 
