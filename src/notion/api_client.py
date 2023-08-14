@@ -4,48 +4,55 @@ from datetime import datetime
 
 from src.notion.models import Task
 
-
 TODAY_VIEW_FILTER = {
-  "filter": {
-    "and": [
-      {
-        "property": "Kanban - State",
-        "select": {
-            "is_not_empty": True
+    "filter": {
+        "and": [
+            {
+                "property": "Kanban - State",
+                "select": {
+                    "is_not_empty": True
+                }
+            },
+            {
+                "property": "Kanban - State",
+                "select": {
+                    "does_not_equal": "Done",
+                }
+            },
+            {
+                "property": "Priority",
+                "select": {
+                    "is_not_empty": True
+                }
+            },
+            {
+                "property": "Done",
+                "checkbox": {
+                    "does_not_equal": True,
+                }
+            },
+            {
+                "property": "Due",
+                "date": {
+                    "on_or_before": datetime.now().isoformat(),
+                }
+            },
+        ]
+    },
+    "sorts": [
+        {
+            "property": "Priority",
+            "direction": "descending"
+        },
+        {
+            "property": "Due",
+            "direction": "ascending",
+        },
+        {
+            "property": "Recur interval (Days)",
+            "direction": "Descending",
         }
-      },
-      {
-        "property": "Kanban - State",
-        "select": {
-            "does_not_equal": "Done",
-        }
-      },
-      {
-        "property": "Priority",
-        "select": {
-          "is_not_empty": True
-        }
-      },
-      {
-        "property": "Done",
-        "checkbox": {
-          "does_not_equal": True,
-        }
-      },
-      {
-          "property": "Due",
-          "date": {
-              "on_or_before": datetime.now().isoformat(),
-          }
-      },
     ]
-  },
-  "sorts": [
-    {
-      "property": "Priority",
-      "direction": "descending"
-    }
-  ]
 }
 
 
