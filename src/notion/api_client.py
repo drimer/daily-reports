@@ -50,7 +50,7 @@ TODAY_VIEW_FILTER = {
         },
         {
             "property": "Recur interval (Days)",
-            "direction": "Descending",
+            "direction": "descending",
         }
     ]
 }
