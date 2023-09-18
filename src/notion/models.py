@@ -13,7 +13,7 @@ class Task:
 class EmailReport:
     tasks: Iterable[Task]
 
-    def body(self):
+    def __str__(self):
         return '''
         <p><b>Tasks in Notion</b><p>
         <ul>{}</ul>
