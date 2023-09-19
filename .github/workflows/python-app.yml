@@ -9,7 +9,7 @@ on:
     tags:
       - '**-run-actions'
   schedule:
-    - cron: '30 7 * * *'
+    - cron: '30 6 * * *'
 
 permissions:
   contents: read
