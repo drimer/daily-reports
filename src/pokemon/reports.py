@@ -1,2 +1,5 @@
+from src.pokemon.models import PokemonNewsReport
+
+
 def build_daily_report():
-    return '[placeholder - soon to come cool news!]'
+    return PokemonNewsReport(news_items=[])
