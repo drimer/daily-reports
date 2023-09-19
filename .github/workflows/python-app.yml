@@ -6,6 +6,8 @@ name: Python application
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - '**-run-actions'
   schedule:
     - cron: '30 7 * * *'
 
@@ -45,4 +47,4 @@ jobs:
         FROM_EMAIL_PASSWORD: ${{secrets.FROM_EMAIL_PASSWORD}}
         NOTION_API_TOKEN: ${{secrets.NOTION_API_TOKEN}}
       run: |
-        python -c 'from src.tasks.notion_daily_report import task; task()'
+        python -c 'from src.tasks.daily_email_reports import task; task()'
