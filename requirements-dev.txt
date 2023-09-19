@@ -1,2 +1,4 @@
 flake8==6.1.0
+htmlmin==0.1.12
+ipdb==0.13.13
 pytest==7.4.2
