@@ -6,7 +6,7 @@ from typing import Iterable
 
 
 def send(reports: Iterable):
-    subject = 'My tasks for {}'.format(datetime.today().strftime('%d-%m-%Y'))
+    subject = 'My daily report for {}'.format(datetime.today().strftime('%d-%m-%Y'))
     message = ('<br/>' * 2).join(str(report) for report in reports)
 
     recipient_email = os.environ['RECIPIENT_EMAIL_ADDRESS']
