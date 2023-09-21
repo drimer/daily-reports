@@ -1,7 +1,8 @@
-import requests
-import os
 from datetime import datetime
 
+import requests
+
+from src.notion.config import NotionConfig
 from src.notion.models import Task
 
 TODAY_VIEW_FILTER = {
@@ -58,7 +59,7 @@ TODAY_VIEW_FILTER = {
 
 def get_request_headers():
     return {
-        "Authorization": "Bearer " + os.environ['NOTION_API_TOKEN'],
+        "Authorization": "Bearer " + NotionConfig.NOTION_API_TOKEN,
         "Content-Type": "application/json",
         "Notion-Version": "2022-06-28"
     }
