@@ -2,7 +2,6 @@ from datetime import datetime
 
 import requests
 
-from src.notion.config import NotionConfig
 from src.notion.models import Task
 
 TODAY_VIEW_FILTER = {
@@ -57,21 +56,26 @@ TODAY_VIEW_FILTER = {
 }
 
 
-def get_request_headers():
-    return {
-        "Authorization": "Bearer " + NotionConfig.NOTION_API_TOKEN,
-        "Content-Type": "application/json",
-        "Notion-Version": "2022-06-28"
-    }
+class NotionApiClient:
+    def __init__(self, api_token: str):
+        self.api_token = api_token
 
+    def get_request_headers(self):
+        return {
+            "Authorization": "Bearer " + self.api_token,
+            "Content-Type": "application/json",
+            "Notion-Version": "2022-06-28"
+        }
 
-def pull_db_entries_from_notion(database_id: str, filters: dict):
-    read_url = f"https://api.notion.com/v1/databases/{database_id}/query"
-    res = requests.request("POST", read_url, headers=get_request_headers(), json=filters)
-    data = res.json()
-    print(res.status_code)
+    def get_entries_from_db(self, database_id: str, filters: dict):
+        read_url = f"https://api.notion.com/v1/databases/{database_id}/query"
+        res = requests.request("POST", read_url, headers=self.get_request_headers(), json=filters)
+        data = res.json()
 
-    return data
+        return data
+
+    def get_todays_tasks(self):
+        return self.get_entries_from_db('7f159b000c2e4365b1a0efec3e6e60a7', TODAY_VIEW_FILTER)
 
 
 def as_task(api_json_response: dict) -> Task:
