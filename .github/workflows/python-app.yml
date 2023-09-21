@@ -35,7 +35,7 @@ jobs:
         flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
     - name: Test with pytest
       run: |
-        pytest
+        pytest --cov=src
 
     - name: Run Notion task
       env:
