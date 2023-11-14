@@ -57,8 +57,9 @@ TODAY_VIEW_FILTER = {
 
 
 class NotionApiClient:
-    def __init__(self, api_token: str):
+    def __init__(self, api_token: str, db_id: str):
         self.api_token = api_token
+        self.db_id = db_id
 
     def get_request_headers(self):
         return {
@@ -75,7 +76,7 @@ class NotionApiClient:
         return data
 
     def get_todays_tasks(self):
-        return self.get_entries_from_db('7f159b000c2e4365b1a0efec3e6e60a7', TODAY_VIEW_FILTER)
+        return self.get_entries_from_db(self.db_id, TODAY_VIEW_FILTER)
 
 
 def as_task(api_json_response: dict) -> Task:
