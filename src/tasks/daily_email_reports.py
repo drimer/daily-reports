@@ -13,7 +13,11 @@ def task(
 ):
     reports = [notion_report_builder(), pokemon_report_builder()]
 
-    email_report_sender(reports)
+    try:
+        email_report_sender(reports)
+    except Exception as e:
+        print(f'Error trying to send: {reports}')
+        print(f'{e}')
 
 
 if __name__ == '__main__':
