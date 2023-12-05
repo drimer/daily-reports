@@ -15,11 +15,7 @@ class DIContainer(containers.DeclarativeContainer):
     )
     notion_api_client = providers.Singleton(NotionApiClient, api_client=notion_config)
 
-    # 3rd party clients
-
-
     # Report builders
-
     pokemon_report_builder = providers.Callable(
         src.pokemon.reports.build_daily_report
     )
