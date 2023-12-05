@@ -6,7 +6,7 @@ from src.di_container import DIContainer
 
 
 @inject
-def task(
+def _task(
         notion_report_builder: Callable = Provide[DIContainer.notion_report_builder.provider],
         pokemon_report_builder: Callable = Provide[DIContainer.pokemon_report_builder.provider],
         email_report_sender: Callable = Provide[DIContainer.email_report_sender.provider],
@@ -17,11 +17,14 @@ def task(
         email_report_sender(reports)
     except Exception as e:
         print(f'Error trying to send: {reports}')
-        print(f'{e}')
+        raise e
+
+
+def task():
+    container = DIContainer()
+    container.wire(modules=[__name__])
+    _task()
 
 
 if __name__ == '__main__':
-    container = DIContainer()
-    container.wire(modules=[__name__])
-
     task()
