@@ -9,20 +9,14 @@ TODAY_VIEW_FILTER = {
         "and": [
             {
                 "property": "Kanban - State",
-                "select": {
+                "status": {
                     "is_not_empty": True
                 }
             },
             {
                 "property": "Kanban - State",
-                "select": {
+                "status": {
                     "does_not_equal": "Done",
-                }
-            },
-            {
-                "property": "Priority",
-                "select": {
-                    "is_not_empty": True
                 }
             },
             {
@@ -41,15 +35,11 @@ TODAY_VIEW_FILTER = {
     },
     "sorts": [
         {
-            "property": "Priority",
-            "direction": "descending"
-        },
-        {
             "property": "Due",
             "direction": "ascending",
         },
         {
-            "property": "Recur Interval (Days)",
+            "property": "State",
             "direction": "descending",
         }
     ]
