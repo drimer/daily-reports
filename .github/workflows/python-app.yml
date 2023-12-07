@@ -35,7 +35,7 @@ jobs:
         flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
     - name: Test with pytest
       run: |
-        pytest
+        pytest --cov=src
 
     - name: Run Notion task
       env:
@@ -43,6 +43,7 @@ jobs:
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
         FROM_EMAIL_PASSWORD: ${{secrets.FROM_EMAIL_PASSWORD}}
         NOTION_API_TOKEN: ${{secrets.NOTION_API_TOKEN}}
+        NOTION_TASKS_DB_ID: ${{secrets.NOTION_TASKS_DB_ID}}
         NEWS_API_TOKEN: ${{secrets.NEWS_API_TOKEN}}
       run: |
         python -c 'from src.tasks.daily_email_reports import task; task()'

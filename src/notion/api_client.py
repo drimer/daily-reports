@@ -1,6 +1,6 @@
-import requests
-import os
 from datetime import datetime
+
+import requests
 
 from src.notion.models import Task
 
@@ -9,20 +9,14 @@ TODAY_VIEW_FILTER = {
         "and": [
             {
                 "property": "Kanban - State",
-                "select": {
+                "status": {
                     "is_not_empty": True
                 }
             },
             {
                 "property": "Kanban - State",
-                "select": {
+                "status": {
                     "does_not_equal": "Done",
-                }
-            },
-            {
-                "property": "Priority",
-                "select": {
-                    "is_not_empty": True
                 }
             },
             {
@@ -41,36 +35,38 @@ TODAY_VIEW_FILTER = {
     },
     "sorts": [
         {
-            "property": "Priority",
-            "direction": "descending"
-        },
-        {
             "property": "Due",
             "direction": "ascending",
         },
         {
-            "property": "Recur Interval (Days)",
+            "property": "State",
             "direction": "descending",
         }
     ]
 }
 
 
-def get_request_headers():
-    return {
-        "Authorization": "Bearer " + os.environ['NOTION_API_TOKEN'],
-        "Content-Type": "application/json",
-        "Notion-Version": "2022-06-28"
-    }
+class NotionApiClient:
+    def __init__(self, api_token: str, db_id: str):
+        self.api_token = api_token
+        self.db_id = db_id
 
+    def get_request_headers(self):
+        return {
+            "Authorization": "Bearer " + self.api_token,
+            "Content-Type": "application/json",
+            "Notion-Version": "2022-06-28"
+        }
 
-def pull_db_entries_from_notion(database_id: str, filters: dict):
-    read_url = f"https://api.notion.com/v1/databases/{database_id}/query"
-    res = requests.request("POST", read_url, headers=get_request_headers(), json=filters)
-    data = res.json()
-    print(res.status_code)
+    def get_entries_from_db(self, database_id: str, filters: dict):
+        read_url = f"https://api.notion.com/v1/databases/{database_id}/query"
+        res = requests.request("POST", read_url, headers=self.get_request_headers(), json=filters)
+        data = res.json()
 
-    return data
+        return data
+
+    def get_todays_tasks(self):
+        return self.get_entries_from_db(self.db_id, TODAY_VIEW_FILTER)
 
 
 def as_task(api_json_response: dict) -> Task:

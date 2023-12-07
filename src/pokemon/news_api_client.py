@@ -1,15 +1,14 @@
-
-import os
 from datetime import datetime, timedelta
 
 import requests
 
+from src.pokemon.config import PokemonConfig
 from src.pokemon.models import PokemonNewsItem
 
 
 def get_request_headers():
     return {
-        "Authorization": "Bearer " + os.environ['NEWS_API_TOKEN'],
+        "Authorization": "Bearer " + PokemonConfig.NEWS_API_TOKEN,
     }
 
 
