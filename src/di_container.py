@@ -12,12 +12,16 @@ class DIContainer(containers.DeclarativeContainer):
     notion_config = providers.Factory(NotionConfig)
     notion_api_client = providers.Singleton(NotionApiClient, notion_config)
     notion_report_runner = providers.Factory(
-        src.notion.reports.NotionReportRunner, notion_api_client=notion_api_client
+        src.notion.reports.NotionReportRunner, notion_api_client
     )
 
     # Report builders
-    pokemon_report_builder = providers.Callable(
-        src.pokemon.reports.build_daily_report
+    pokemon_config = providers.Factory(src.pokemon.config.PokemonConfig)
+    pokemon_news_api_client = providers.Factory(
+        src.pokemon.news_api_client.PokemonNewsApiClient, pokemon_config
+    )
+    pokemon_report_runner = providers.Factory(
+        src.pokemon.reports.PokemonNewsReportRunner, pokemon_news_api_client
     )
 
     # Report senders
