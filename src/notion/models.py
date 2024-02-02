@@ -2,6 +2,8 @@ import datetime
 from dataclasses import dataclass
 from typing import Iterable
 
+from src.core.reports import Report
+
 
 @dataclass
 class Task:
@@ -10,7 +12,7 @@ class Task:
 
 
 @dataclass
-class EmailReport:
+class EmailReport(Report):
     tasks: Iterable[Task]
 
     def __str__(self):

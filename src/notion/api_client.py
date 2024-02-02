@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import requests
+from src.notion.config import NotionConfig
 
 from src.notion.models import Task
 
@@ -47,9 +48,9 @@ TODAY_VIEW_FILTER = {
 
 
 class NotionApiClient:
-    def __init__(self, api_token: str, db_id: str):
-        self.api_token = api_token
-        self.db_id = db_id
+    def __init__(self, notion_config: NotionConfig):
+        self.api_token = notion_config.NOTION_API_TOKEN
+        self.db_id = notion_config.NOTION_TASKS_DB_ID
 
     def get_request_headers(self):
         return {

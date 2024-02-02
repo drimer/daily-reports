@@ -10,10 +10,10 @@ from src.report_senders.email_reporter import send
 class DIContainer(containers.DeclarativeContainer):
     # Notion
     notion_config = providers.Factory(NotionConfig)
-    notion_report_builder = providers.Callable(
-        src.notion.reports.build_daily_report
+    notion_api_client = providers.Singleton(NotionApiClient, notion_config)
+    notion_report_runner = providers.Factory(
+        src.notion.reports.NotionReportRunner, notion_api_client=notion_api_client
     )
-    notion_api_client = providers.Singleton(NotionApiClient, api_client=notion_config)
 
     # Report builders
     pokemon_report_builder = providers.Callable(

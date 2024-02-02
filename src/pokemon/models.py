@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Iterable
 
+from src.core.reports import Report
+
 
 @dataclass
 class PokemonNewsItem:
@@ -9,7 +11,7 @@ class PokemonNewsItem:
 
 
 @dataclass
-class PokemonNewsReport:
+class PokemonNewsReport(Report):
     news_items: Iterable[PokemonNewsItem]
 
     def __str__(self):
