@@ -15,3 +15,8 @@ class ReportRunner(metaclass=abc.ABCMeta):
         ...
 
     
+class ReportSender(metaclass=abc.ABCMeta):
+
+    @abc.abstractmethod
+    def send(self, report: Report) -> None:
+        ...
