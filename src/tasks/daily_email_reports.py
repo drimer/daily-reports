@@ -1,11 +1,6 @@
-import abc
-from typing import Callable
-
-from dependency_injector.wiring import inject, Provide
 from src.core.reports import ReportRunner, ReportSender
 
 from src.di_container import DIContainer
-from src.notion.reports import NotionReportRunner
 
 
 def _task(
@@ -28,16 +23,16 @@ def _task(
 def task():
     container = DIContainer()
     container.wire(modules=[__name__])
-    
+
     report_runners: list[ReportRunner] = []
     for attribute_name in dir(container):
         try:
             instance = getattr(container, attribute_name)()
             if isinstance(instance, ReportRunner):
-                report_runners.append(instance)    
+                report_runners.append(instance)
         except Exception:
             continue
-    
+
     _task(report_runners, container.email_report_sender())
 
 

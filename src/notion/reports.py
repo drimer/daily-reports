@@ -1,6 +1,5 @@
 from src.core.reports import Report, ReportRunner
 from src.notion.api_client import as_tasks, NotionApiClient
-from src.notion.config import NotionConfig
 from src.notion.models import EmailReport
 
 

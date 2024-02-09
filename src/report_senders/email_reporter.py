@@ -9,7 +9,7 @@ from src.report_senders.config import ReportSendersConfig
 class EmailReportSender:
     def __init__(self, report_senders_config: ReportSendersConfig):
         self.config = report_senders_config
-    
+
     def send(self, reports: Iterable):
         subject = 'My daily report for {}'.format(datetime.today().strftime('%d-%m-%Y'))
         message = ('<br/>' * 2).join(str(report) for report in reports)

@@ -34,6 +34,5 @@ class PokemonNewsApiClient:
     def as_pokemon_news_item(self, api_json_response: dict) -> PokemonNewsItem:
         return PokemonNewsItem(title=api_json_response['title'], url=api_json_response['url'])
 
-
     def as_pokemon_news_items(self, api_json_response: dict) -> list[PokemonNewsItem]:
         return [self.as_pokemon_news_item(json) for json in api_json_response['articles']]
