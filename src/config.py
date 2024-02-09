@@ -6,7 +6,7 @@ class ConfigError(Exception):
 
 
 class Config:
-    def get_from_env(param_name) -> str:
+    def get_from_env(self, param_name) -> str:
         value = os.environ.get(param_name)
 
         if value is None:  # TBD
