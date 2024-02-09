@@ -2,8 +2,9 @@ from src.config import Config
 
 
 class PokemonConfig(Config):
-    NEWS_API_TOKEN = Config.get_from_env('NEWS_API_TOKEN')
+    NEWS_API_TOKEN: str = None
 
+    def __init__(self) -> None:
+        super().__init__()
 
-if __name__ == '__main__':
-    config = PokemonConfig()
+        self.NEWS_API_TOKEN = self.get_from_env('NEWS_API_TOKEN')
