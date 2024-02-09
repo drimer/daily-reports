@@ -33,7 +33,7 @@ jobs:
       run: |
         pytest --cov=src
     - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      name: Run Notion task
+      name: Run the daily report task
       env:
         RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
