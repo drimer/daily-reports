@@ -15,6 +15,19 @@ def notion_report_runner(notion_api_client):
     return NotionReportRunner(notion_api_client)
 
 
+def test_that_notion_report_runner_calls_notion_api_client_with_no_tasks(
+            notion_report_runner, notion_api_client
+        ):
+    notion_api_client.get_todays_tasks = mock.Mock(return_value={
+        'results': []
+    })
+
+    report = notion_report_runner.run()
+
+    notion_api_client.get_todays_tasks.assert_called_once()
+    assert report.tasks == []
+
+
 def test_that_notion_report_runner_calls_notion_api_client_with_tasks(
             notion_report_runner, notion_api_client
         ):
