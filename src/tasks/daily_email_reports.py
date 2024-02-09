@@ -12,8 +12,6 @@ def _task(
         report_runners: list[ReportRunner],
         email_report_sender: ReportSender,
 ):
-    # report_runners: list[ReportRunner] = [notion_report_runner(), pokemon_report_runner()]
-    
     try:
         reports = [runner.run() for runner in report_runners]
     except Exception as e:
