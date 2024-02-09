@@ -32,6 +32,7 @@ jobs:
         pytest --cov=src
 
   send_email:
+    needs: setup_test_and_lint
     if: github.event_name == 'push' && github.ref == 'refs/heads/build-from-branches'
     runs-on: ubuntu-latest
     steps:
