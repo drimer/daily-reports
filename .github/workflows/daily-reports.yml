@@ -40,8 +40,8 @@ jobs:
         NOTION_API_TOKEN: ${{secrets.NOTION_API_TOKEN}}
         NOTION_TASKS_DB_ID: ${{secrets.NOTION_TASKS_DB_ID}}
         NEWS_API_TOKEN: ${{secrets.NEWS_API_TOKEN}}
-        GMAIL_OLDER_THAN_DAYS: ${{secrets.GMAIL_1_OLDER_THAN_DAYS}}
-        GMAIL_EMAIL_ADDRESS: ${{secrets.GMAIL_1_EMAIL_ADDRESS}}
-        GMAIL_PASSWORD: ${{secrets.GMAIL_1_PASSWORD}}
+        GMAIL_OLDER_THAN_DAYS: dummy
+        GMAIL_EMAIL_ADDRESS: dummy
+        GMAIL_PASSWORD: dummy
       run: |
         python -c 'from src.tasks.daily_email_reports import task; task()'
