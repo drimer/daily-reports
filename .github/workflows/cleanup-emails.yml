@@ -1,11 +1,12 @@
 name: Send daily email report
 on:
   push:
-    branches:
-      - '*'
+    branches: [ "main" ]
+    tags:
+      - '**-run-actions'
   schedule:
-    - cron: "30 6 * * *"
-  
+    - cron: '30 6 * * *'
+
 permissions:
   contents: read
 
@@ -31,8 +32,8 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cov=src
-    - if: ${{ github.ref == 'refs/heads/main' }}
-      name: Run the daily report task
+
+    - name: Clean up old emails in Gmail account 1
       env:
         RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
@@ -44,4 +45,4 @@ jobs:
         GMAIL_EMAIL_ADDRESS: ${{secrets.GMAIL_1_EMAIL_ADDRESS}}
         GMAIL_PASSWORD: ${{secrets.GMAIL_1_PASSWORD}}
       run: |
-        python -c 'from src.tasks.daily_email_reports import task; task()'
+        python -c 'from src.tasks.email_cleaner import task; task()'

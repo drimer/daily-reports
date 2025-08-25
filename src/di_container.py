@@ -3,6 +3,10 @@ from src.notion.reports import NotionReportRunner
 
 from src.pokemon.config import PokemonConfig
 from src.pokemon.news_api_client import PokemonNewsApiClient
+import src.notion.reports
+import src.pokemon.reports
+from src.gmail.config import GmailConfig
+from src.gmail.gmail_client import delete_old_emails
 from src.notion.api_client import NotionApiClient
 from src.notion.config import NotionConfig
 from src.pokemon.reports import PokemonNewsReportRunner
@@ -30,3 +34,12 @@ class DIContainer(containers.DeclarativeContainer):
     # Report senders
     report_senders_config = providers.Factory(ReportSendersConfig)
     email_report_sender = providers.Factory(EmailReportSender, report_senders_config)
+
+    # Gmail
+    gmail_config = providers.Factory(GmailConfig)
+    gmail_delete_old_emails = providers.Callable(
+        delete_old_emails,
+        email=gmail_config.provided.EMAIL_ADDRESS,
+        password=gmail_config.provided.PASSWORD,
+        older_than_days=gmail_config.provided.OLDER_THAN_DAYS,
+    )
