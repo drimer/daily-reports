@@ -1,5 +1,4 @@
-name: Full pipeline to send the email report
-
+name: Send daily email report
 on:
   push:
     branches:
@@ -32,8 +31,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cov=src
-    - if: ${{ github.ref == 'refs/heads/main' }}
-      name: Run the daily report task
+    - name: Run the daily report task
       env:
         RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
@@ -41,5 +39,8 @@ jobs:
         NOTION_API_TOKEN: ${{secrets.NOTION_API_TOKEN}}
         NOTION_TASKS_DB_ID: ${{secrets.NOTION_TASKS_DB_ID}}
         NEWS_API_TOKEN: ${{secrets.NEWS_API_TOKEN}}
+        GMAIL_OLDER_THAN_DAYS: dummy
+        GMAIL_EMAIL_ADDRESS: dummy
+        GMAIL_PASSWORD: dummy
       run: |
         python -c 'from src.tasks.daily_email_reports import task; task()'
