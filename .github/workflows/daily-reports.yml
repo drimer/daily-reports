@@ -31,8 +31,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --cov=src
-    - if: ${{ github.ref == 'refs/heads/main' }}
-      name: Run the daily report task
+    - name: Run the daily report task
       env:
         RECIPIENT_EMAIL_ADDRESS: ${{secrets.RECIPIENT_EMAIL_ADDRESS}}
         FROM_EMAIL_ADDRESS: ${{secrets.FROM_EMAIL_ADDRESS}}
