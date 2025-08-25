@@ -1,9 +1,8 @@
 name: Send daily email report
 on:
   push:
-    branches: [ "main" ]
-    tags:
-      - '**-run-actions'
+    branches:
+      - '*'
   schedule:
     - cron: '30 6 * * *'
 
