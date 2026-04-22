@@ -21,10 +21,10 @@ jobs:
 
     - name: Lint code
       run: |
-        uv run flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
+        uv run --group lint flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
 
     - name: Run tests
-      run: uv run pytest --cov=src --junitxml=pytest.xml --cov-report="xml:coverage.xml" | tee pytest-coverage.txt
+      run: uv run --group test pytest --cov=src --junitxml=pytest.xml --cov-report="xml:coverage.xml" | tee pytest-coverage.txt
 
     - name: Pytest coverage comment
       uses: MishaKav/pytest-coverage-comment@main

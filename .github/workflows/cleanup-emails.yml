@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'feat/use-uv'
   schedule:
     - cron: '30 6 * * *'
 
@@ -25,10 +26,10 @@ jobs:
 
     - name: Lint code
       run: |
-        uv run flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
+        uv run --group lint flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
 
     - name: Run tests
-      run: uv run pytest --cov=src
+      run: uv run --group test pytest --cov=src
 
     - name: Clean up old emails in Gmail account 1
       env:
