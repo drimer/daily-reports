@@ -1,0 +1,26 @@
+name: Package, lint and test
+
+on: [push]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+    
+    - name: Set up Python
+      run: uv python install
+
+    - name: Lint code
+      run: |
+        uv run --group lint flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
+
+    - name: Run tests
+      run: uv run --group test pytest --cov=src

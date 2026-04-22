@@ -1,0 +1,43 @@
+name: Post test coverage report in PR
+
+on: [pull_request]
+
+permissions:
+  contents: write
+  checks: write
+  pull-requests: write
+
+jobs:
+  report-coverage:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v7
+    
+    - name: Set up Python
+      run: uv python install
+
+    - name: Lint code
+      run: |
+        uv run --group lint flake8 src --count --max-complexity=10 --max-line-length=120 --show-source --statistics
+
+    - name: Run tests
+      run: uv run --group test pytest --cov=src --junitxml=pytest.xml --cov-report="xml:coverage.xml" | tee pytest-coverage.txt
+
+    - name: Pytest coverage comment
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-coverage-path: ./pytest-coverage.txt
+        pytest-xml-coverage-path: ./coverage.xml
+        junitxml-path: ./pytest.xml
+        title: Full Coverage
+        badge-title: Code Coverage
+        junitxml-title: JUnit XML Summray
+        hide-badge: false
+        hide-report: false
+        create-new-comment: false
+        hide-comment: false
+        report-only-changed-files: false
+        remove-link-from-badge: false
