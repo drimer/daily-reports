@@ -2,7 +2,7 @@ name: Clean up old emails in Gmail accounts
 on:
   push:
     branches:
-      - '*'
+      - 'main'
   schedule:
     - cron: '30 6 * * *'
 

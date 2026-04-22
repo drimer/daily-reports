@@ -2,7 +2,7 @@ name: Send daily email report
 on:
   push:
     branches:
-      - '*'
+      - 'main'
   schedule:
     - cron: "30 6 * * *"
   
