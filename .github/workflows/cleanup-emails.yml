@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - 'main'
-      - 'feat/use-uv'
   schedule:
     - cron: '30 6 * * *'
 
@@ -56,5 +55,19 @@ jobs:
         GMAIL_OLDER_THAN_DAYS: ${{vars.GMAIL_2_OLDER_THAN_DAYS}}
         GMAIL_EMAIL_ADDRESS: ${{vars.GMAIL_2_EMAIL_ADDRESS}}
         GMAIL_PASSWORD: ${{secrets.GMAIL_2_PASSWORD}}
+      run: |
+        uv run python -c 'from src.tasks.email_cleaner import task; task()'
+
+    - name: Clean up old emails in Gmail account 3
+      env:
+        RECIPIENT_EMAIL_ADDRESS: dummy
+        FROM_EMAIL_ADDRESS: dummy
+        FROM_EMAIL_PASSWORD: dummy
+        NOTION_API_TOKEN: dummy
+        NOTION_TASKS_DB_ID: dummy
+        NEWS_API_TOKEN: dummy
+        GMAIL_OLDER_THAN_DAYS: ${{vars.GMAIL_3_OLDER_THAN_DAYS}}
+        GMAIL_EMAIL_ADDRESS: ${{vars.GMAIL_3_EMAIL_ADDRESS}}
+        GMAIL_PASSWORD: ${{secrets.GMAIL_3_PASSWORD}}
       run: |
         uv run python -c 'from src.tasks.email_cleaner import task; task()'
